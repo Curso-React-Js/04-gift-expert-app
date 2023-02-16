@@ -1,24 +1,9 @@
-import { useEffect, useState } from 'react';
-import { getGifs } from '../helpers/getGifs';
 import { GifItem } from './GifItem';
+import { useFetchGifs } from '../hooks/useFetchGifs';
 
 export const GifGrid = ({ category }) => {
-
-  const [images, setImages] = useState([]);
-
-  const getImages = async() => {
-    const newImages = await getGifs( category );
-    setImages(newImages);
-  }
-
-  // useEffect (un hook) => Sirve para disparar efectos secundarios
-  // No se vuelve a ejecturar el fetch 
-  useEffect(() => {
-    // #1 forma
-    // getGifs(category).then(newimages => setImages(newimages));
-    // #2 forma
-    getImages();
-  }, [])
+  
+  const { images, isLoading } = useFetchGifs( category );
 
   return (
     <>
